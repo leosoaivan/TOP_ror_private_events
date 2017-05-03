@@ -1,0 +1,24 @@
+<h1>User Profile</h1>
+
+<%= @user.name %>
+<% if @user.created_events %>
+  <% @user.created_events.each do |event| %>
+    <li>
+      <%= event.name %>
+    </li>
+  <% end %>
+<% end %>
+<% if @user.attended_events %>
+  <p>Upcoming Events:</p>
+  <% @user.upcoming_events.each do |event| %>
+    <li>
+      <%= "#{event.name}, on #{event.date.strftime("%m/%d/%Y")}" %>
+    </li>
+  <% end %>
+  <p>Previous Events:</p>
+  <% @user.previous_events.each do |event| %>
+    <li>
+      <%= "#{event.name}, on #{event.date.strftime("%m/%d/%Y")}" %>
+    </li>
+  <% end %>
+<% end %>

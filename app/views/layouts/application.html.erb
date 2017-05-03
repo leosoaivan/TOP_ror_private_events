@@ -9,6 +9,9 @@
   </head>
 
   <body>
+    <% if cookies[:name] %>
+      <p>Current user: <%= cookies[:name] %> </p>
+    <% end %>
     <%= yield %>
   </body>
 </html>
