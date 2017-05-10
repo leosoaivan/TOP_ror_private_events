@@ -6,7 +6,7 @@ Rails.application.routes.draw do
 
   root 'sessions#new'
 
-  get 'sessions/new'
+  get '/login', to: 'sessions#new'
   post '/login', to: 'sessions#create'
   
   get 'users', to: 'users#index'

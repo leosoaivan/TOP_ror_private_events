@@ -12,7 +12,8 @@ class UsersController < ApplicationController
     if @user.save
       redirect_to @user
     else
-      render root_url
+      flash.now[:danger] = "User name cannot be blank"
+      render :new
     end
   end
 

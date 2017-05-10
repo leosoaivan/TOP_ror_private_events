@@ -1,11 +1,49 @@
-<h1>Events</h1>
+<div class="row">
+  <div class="col-xs-10 col-xs-offset-1 text-center"><h1>Events</h1></div>
+</div>
 
-<% Event.upcoming.each do |event| %>
-  <p>Upcoming events:</p>
-  <li><%= link_to "#{event.name}", event %></li>
-<% end %>
+<div class="row">
+  <div class="col-xs-10 col-xs-offset-1">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h2 class="panel-title">Upcoming Events</h2>
+      </div>
+      <ul class="list-group">
+        <% unless Event.upcoming.empty? %>
+          <% Event.upcoming.each do |event| %>
+            <li class="list-group-item">
+              <%= link_to "#{event.name}", event %>
+            </li>
+          <% end %>
+        <% else %>
+          <li class="list-group-item">
+            No upcoming events yet.
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</div>
 
-<% Event.past.each do |event| %>
-  <p>Past events:</p>
-  <li><%= link_to "#{event.name}", event %></li>
-<% end %>
+<div class="row">
+  <div class="col-xs-10 col-xs-offset-1">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h2 class="panel-title">Past Events</h2>
+      </div>
+      <ul class="list-group">
+        <% unless Event.past.empty? %>
+          <% Event.past.each do |event| %>
+            <li class="list-group-item">
+              <%= link_to "#{event.name}", event %>
+            </li>
+          <% end %>
+        <% else %>
+          <li class="list-group-item">
+            No past events.
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</div>

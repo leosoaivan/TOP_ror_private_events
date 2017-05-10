@@ -1,24 +1,65 @@
-<h1>User Profile</h1>
+<div class="row">
+  <div class="col-xs-10 col-xs-offset-1">
+    <h1>User Profile:</h1>
+  </div>
+  <div class="col-xs-10 col-xs-offset-2">
+    <h3><%= @user.name %></h3>
+  </div>
+</div>
 
-<%= @user.name %>
-<% if @user.created_events %>
-  <% @user.created_events.each do |event| %>
-    <li>
-      <%= event.name %>
-    </li>
-  <% end %>
-<% end %>
-<% if @user.attended_events %>
-  <p>Upcoming Events:</p>
-  <% @user.upcoming_events.each do |event| %>
-    <li>
-      <%= "#{event.name}, on #{event.date.strftime("%m/%d/%Y")}" %>
-    </li>
-  <% end %>
-  <p>Previous Events:</p>
-  <% @user.previous_events.each do |event| %>
-    <li>
-      <%= "#{event.name}, on #{event.date.strftime("%m/%d/%Y")}" %>
-    </li>
-  <% end %>
-<% end %>
+<div class="row">
+  <div class="col-xs-10 col-xs-offset-1">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h2 class="panel-title">Your Created Events</h2>
+      </div>
+      <ul class="list-group">
+        <% unless @user.created_events.empty? %>
+          <% @user.created_events.each do |event| %>
+            <li class="list-group-item">
+              <%= link_to "#{event.name}", event_path(event) %>
+            </li>
+          <% end %>
+        <% else %>
+          <li class="list-group-item">
+            No events yet. Create one <%= link_to "here", events_new_path %>.
+          </li>
+        <% end %>
+      </ul>
+    </div>
+
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h2 class="panel-title">Your Upcoming Events</h2>
+      </div>
+      <ul class="list-group">
+        <% unless @user.upcoming_events.empty? %>
+          <% @user.upcoming_events.each do |event| %>
+            <li class="list-group-item">
+              <%= "#{event.name}, on #{event.date.strftime("%m/%d/%Y")}" %>
+            </li>
+          <% end %>
+        <% else %>
+          <li class="list-group-item">
+            No upcoming events. Look at some <%= link_to "here", events_path %>.
+          </li>
+        <% end %>
+      </ul>
+    </div>
+
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h2 class="panel-title">Your Previous Events</h2>
+      </div>
+      <ul class="list-group">
+        <% if @user.previous_events %>
+          <% @user.previous_events.each do |event| %>
+            <li class="list-group-item">
+              <%= "#{event.name}, on #{event.date.strftime("%m/%d/%Y")}" %>
+            </li>
+          <% end %>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</div>

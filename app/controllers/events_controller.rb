@@ -5,9 +5,13 @@ class EventsController < ApplicationController
     
   def create
     @user = User.find_by(name: cookies[:name])
-    @event = @user.created_events.build(params[:name])
-    @event.save
-    redirect_to @event
+    @event = @user.created_events.build(event_params)
+    if @event.save
+      redirect_to @event
+    else
+      flash.now[:danger] = "Event name/date cannot be blank"
+      render :new
+    end
   end
 
   def show
@@ -16,5 +20,11 @@ class EventsController < ApplicationController
 
   def index
   end
+
+  private
+
+    def event_params
+      params.require(:event).permit(:name, :date)
+    end
   
 end

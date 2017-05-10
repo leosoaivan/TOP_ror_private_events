@@ -1,7 +1,22 @@
-<h1>All users</h1>
-
-<ol>
-  <% @users.each do |user| %>
-    <li><%= user.name%></li>
-  <% end %>
-</ol>
+<div class="row">
+  <div class="col-xs-10 col-xs-offset-1">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h2 class="panel-title">All Users</h2>
+      </div>
+      <ul class="list-group">
+        <% unless @users.empty? %>
+          <% @users.each do |user| %>
+            <li class="list-group-item">
+              <%= link_to "#{user.name}", user_path(user) %>
+            </li>
+          <% end %>
+        <% else %>
+          <li class="list-group-item">
+            No users yet.
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</div>
