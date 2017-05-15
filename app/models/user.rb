@@ -4,14 +4,14 @@ class User < ApplicationRecord
  
   has_many :created_events, foreign_key: :creator_id, class_name: 'Event', dependent: :destroy
 
-  validates :name, presence: true
+  validates :name, presence: true, uniqueness: true
 
   def upcoming_events
-    self.attended_events.select { |event| event.date > Date.today }
+    self.attended_events.select { |event| event.date > DateTime.now }
   end
 
   def previous_events
-    self.attended_events.select { |event| event.date < Date.today }
+    self.attended_events.select { |event| event.date < DateTime.now }
   end
   
 end
