@@ -1,10 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe SessionsController, type: :controller do
-  let!(:user) { create(:user) }
-  let!(:unknown_user) { build(:user) }
-  let!(:session_params) { { session: { name: user.name } } }
-  let!(:request) { post :create, params: session_params }
+  let(:user) { create(:user) }
+  let(:session_params) { { session: { name: user.name } } }
+  let(:request) { post :create, params: session_params }
 
   describe "POST #create" do
     context "with a known user" do
@@ -25,13 +24,16 @@ RSpec.describe SessionsController, type: :controller do
     end
     
     context "with an unknown user" do
+      let(:unknown_user) { build(:user) }
+      let(:session_params) { { session: { name: unknown_user.name } } }
+      
       it "flashes a warning " do
-        post :create, params: { session: { name: unknown_user.name } }
+        request
         expect(flash[:danger]).to be_present
       end
 
       it "redirects to a new login page" do
-        post :create, params: { session: { name: unknown_user.name } }
+        request
         expect(response).to render_template :new
       end
     end
