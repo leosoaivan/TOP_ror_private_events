@@ -1,19 +1,39 @@
 require 'rails_helper'
 
 RSpec.describe SessionsController, type: :controller do
+  let!(:user) { create(:user) }
+  let!(:unknown_user) { build(:user) }
+  let!(:session_params) { { session: { name: user.name } } }
+  let!(:request) { post :create, params: session_params }
 
-  describe "GET #new" do
-    it "returns http success" do
-      get :new
-      expect(response).to have_http_status(:success)
+  describe "POST #create" do
+    context "with a known user" do
+      it "assigns the user to @user" do
+        request
+        expect(assigns(:user)).to eq(user)
+      end
+
+      it "assigns the user's name to cookies" do
+        request
+        expect(response.cookies['name']).to eq(user.name)
+      end
+
+      it "redirects to the user's page" do
+        request
+        expect(response).to redirect_to user_path(assigns[:user])
+      end
+    end
+    
+    context "with an unknown user" do
+      it "flashes a warning " do
+        post :create, params: { session: { name: unknown_user.name } }
+        expect(flash[:danger]).to be_present
+      end
+
+      it "redirects to a new login page" do
+        post :create, params: { session: { name: unknown_user.name } }
+        expect(response).to render_template :new
+      end
     end
   end
-
-  describe "GET #create" do
-    it "returns http success" do
-      get :create
-      expect(response).to have_http_status(:success)
-    end
-  end
-
 end

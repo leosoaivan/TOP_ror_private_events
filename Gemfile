@@ -31,6 +31,7 @@ group :test do
   gem 'database_cleaner', '~> 1.6', '>= 1.6.1'
   gem 'launchy', '~> 2.4', '>= 2.4.3'
   gem 'selenium-webdriver', '~> 3.4'
+  gem 'rails-controller-testing'
 end
 
 group :development do

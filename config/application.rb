@@ -19,7 +19,7 @@ module RailsPrivateEvents
         routing_specs: false,
         controller_specs: true,
         request_specs: false
-      g.fixture_replacment :factory_girl, dir: "spec/factories"
+      g.fixture_replacment :factory_girl, dir: "spec/support"
     end
   end
 end
