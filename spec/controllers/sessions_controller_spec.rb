@@ -32,7 +32,7 @@ RSpec.describe SessionsController, type: :controller do
         expect(flash[:danger]).to be_present
       end
 
-      it "redirects to a new login page" do
+      it "re-renders the login page" do
         request
         expect(response).to render_template :new
       end
